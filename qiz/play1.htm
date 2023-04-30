@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+        }
+        h1{
+            color: #ff6c03;
+            text-align: center;
+        }
+        .question{
+            font-weight: 600;
+            color: #f8f7f7;
+        }
+        .answers {
+          margin-bottom: 20px;
+          color: #f8f7f7;
+        }
+        .answers label{
+          display: block;
+        }
+        #submit{
+            font-family: sans-serif;
+            font-size: 20px;
+            background-color: #279;
+            color: #fff;
+            border: 0px;
+            border-radius: 3px;
+            padding: 20px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        #submit:hover{
+            background-color: rgb(205, 87, 19);
+        }
+        #results{
+          color: #f8f7f7;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quiz -1</h1>
+    <div id="quiz"></div>
+<button id="submit">Submit Quiz</button>
+<div id="results"></div>
+<script>
+    (function(){
+        function buildQuiz(){
+          // variable to store the HTML output
+          const output = [];
+      
+          // for each question...
+          myQuestions.forEach(
+            (currentQuestion, questionNumber) => {
+      
+              // variable to store the list of possible answers
+              const answers = [];
+      
+              // and for each available answer...
+              for(letter in currentQuestion.answers){
+      
+                // ...add an HTML radio button
+                answers.push(
+                  `<label>
+                    <input type="radio" name="question${questionNumber}" value="${letter}">
+                    ${letter} :
+                    ${currentQuestion.answers[letter]}
+                  </label>`
+                );
+              }
+      
+              // add this question and its answers to the output
+              output.push(
+                `<div class="question"> ${currentQuestion.question} </div>
+                <div class="answers"> ${answers.join('')} </div>`
+              );
+            }
+          );
+      
+          // finally combine our output list into one string of HTML and put it on the page
+          quizContainer.innerHTML = output.join('');
+        }
+      
+        function showResults(){
+      
+          // gather answer containers from our quiz
+          const answerContainers = quizContainer.querySelectorAll('.answers');
+      
+          // keep track of user's answers
+          let numCorrect = 0;
+      
+          // for each question...
+          myQuestions.forEach( (currentQuestion, questionNumber) => {
+      
+            // find selected answer
+            const answerContainer = answerContainers[questionNumber];
+            const selector = `input[name=question${questionNumber}]:checked`;
+            const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+      
+            // if answer is correct
+            if(userAnswer === currentQuestion.correctAnswer){
+              // add to the number of correct answers
+              numCorrect++;
+      
+              // color the answers green
+              answerContainers[questionNumber].style.color = 'lightgreen';
+            }
+            // if answer is wrong or blank
+            else{
+              // color the answers red
+              answerContainers[questionNumber].style.color = 'red';
+            }
+          });
+      
+          // show number of correct answers out of total
+          resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
+        }
+      
+        const quizContainer = document.getElementById('quiz');
+        const resultsContainer = document.getElementById('results');
+        const submitButton = document.getElementById('submit');
+        const myQuestions = [
+          {
+            question: "What is an apple?",
+            answers: {
+              a: "Fruit",
+              b: "flower",
+              c: "none"
+            },
+            correctAnswer: "a"
+          },
+          {
+            question: "	Find the area of a square, one of whose diagonals is 3.8 m long?",
+            answers: {
+              a: "7.22",
+              b: "6.22t",
+              c: "4.22",
+              d: "3.22"
+            },
+            correctAnswer: "a"
+          },
+          {
+            question: "Find the area of a triangle whose sides measure 13 cm, 14 cm and 15 cm?",
+            answers: {
+              a: "84",
+              b: "64",
+              c: "44",
+              d: "22"
+            },
+            correctAnswer: "a"
+          },
+          {
+            question: "The length of a rectangle is 12 cm. What is the width if the area is 72 cm?",
+            answers: {
+              a: "5cm",
+              b: "6cm",
+              c: "4cm",
+              d: "3cm"
+            },
+            correctAnswer: "b"
+          }
+        ];
+      
+        // Kick things off
+        buildQuiz();
+      
+        // Event listeners
+        submitButton.addEventListener('click', showResults);
+      })();
+</script>
+</body>
+</html>

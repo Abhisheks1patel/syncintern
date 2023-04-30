@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+            margin-left: 40px;
+        }
+        h1{
+            color: #ff6c03;
+            text-align: center;
+        }
+        .question{
+            font-weight: 600;
+            color: #f8f7f7;
+        }
+        .answers {
+          margin-bottom: 20px;
+          color: #f8f7f7;
+        }
+        .answers label{
+          display: block;
+        }
+        #submit{
+            font-family: sans-serif;
+            font-size: 20px;
+            background-color: #279;
+            color: #fff;
+            border: 0px;
+            border-radius: 3px;
+            padding: 20px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        #submit:hover{
+            background-color: rgb(205, 87, 19);
+        }
+        #results{
+          color: #f8f7f7;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quiz -2</h1>
+    <div id="quiz"></div>
+<button id="submit">Submit Quiz</button>
+<div id="results"></div>
+<script>
+    (function(){
+        function buildQuiz(){
+          // variable to store the HTML output
+          const output = [];
+      
+          // for each question...
+          myQuestions.forEach(
+            (currentQuestion, questionNumber) => {
+      
+              // variable to store the list of possible answers
+              const answers = [];
+      
+              // and for each available answer...
+              for(letter in currentQuestion.answers){
+      
+                // ...add an HTML radio button
+                answers.push(
+                  `<label>
+                    <input type="radio" name="question${questionNumber}" value="${letter}">
+                    ${letter} :
+                    ${currentQuestion.answers[letter]}
+                  </label>`
+                );
+              }
+      
+              // add this question and its answers to the output
+              output.push(
+                `<div class="question"> ${currentQuestion.question} </div>
+                <div class=answers> ${answers.join('')} </div>`
+              );
+            }
+          );
+      
+          // finally combine our output list into one string of HTML and put it on the page
+          quizContainer.innerHTML = output.join('');
+        }
+      
+        function showResults(){
+      
+          // gather answer containers from our quiz
+          const answerContainers = quizContainer.querySelectorAll('.answers');
+      
+          // keep track of user's answers
+          let numCorrect = 0;
+      
+          // for each question...
+          myQuestions.forEach( (currentQuestion, questionNumber) => {
+      
+            // find selected answer
+            const answerContainer = answerContainers[questionNumber];
+            const selector = `input[name=question${questionNumber}]:checked`;
+            const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+      
+            // if answer is correct
+            if(userAnswer === currentQuestion.correctAnswer){
+              // add to the number of correct answers
+              numCorrect++;
+      
+              // color the answers green
+              answerContainers[questionNumber].style.color = 'lightgreen';
+            }
+            // if answer is wrong or blank
+            else{
+              // color the answers red
+              answerContainers[questionNumber].style.color = 'red';
+            }
+          });
+      
+          // show number of correct answers out of total
+          resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
+        }
+      
+        const quizContainer = document.getElementById('quiz');
+        const resultsContainer = document.getElementById('results');
+        const submitButton = document.getElementById('submit');
+        const myQuestions = [
+                            {
+                   question: "What is the scientific name of a butterfly?",
+                    answers: {
+                    a:"Apis",
+                    b:"Coleoptera",
+                    c:"Formicidae",
+                    d:"Rhopalocera"
+                    },
+                    correctAnswer: "c"
+                    },
+                    {
+                   question: "How hot is the surface of the sun?",
+                    answers: {
+                    a:"1,233 K",
+                    b:"5,778 K",
+                    c:"12,130 K",
+                    d:"101,300 K"
+                    },
+                    correctAnswer: "a"
+                    },
+                    {
+                   question: "Who are the actors in The Internship?",
+                    answers: {
+                   a: "Ben Stiller, Jonah Hill",
+                   b: "Courteney Cox, Matt LeBlanc",
+                   c: "Kaley Cuoco, Jim Parsons",
+                   d: "Vince Vaughn, Owen Wilson"
+                    },
+                    correctAnswer: "c"
+                    },
+                    {
+                   question: "What is the capital of Spain?",
+                    answers: {
+                    a:"Berlin",
+                    b:"Buenos Aires",
+                    c:"Madrid",
+                    d:"San Juan"
+                    },
+                    correctAnswer: "b"
+                    },
+                    {
+                   question: "When was Mahatma Gandhi born?",
+                    answers: {
+                    a:"October 2, 1869",
+                    b:"December 15, 1872",
+                    c:"July 18, 1918",
+                    d:"January 15, 1929"
+                    },
+                    correctAnswer: "a"
+                    },
+                    {
+                    question: "How far is the moon from Earth?",
+                    answers: {
+                    a:"7,918 miles (12,742 km)",
+                    b:"86,881 miles (139,822 km)",
+                    c:"238,400 miles (384,400 km)",
+                    d:"35,980,000 miles (57,910,000 km)"
+                    },
+                    correctAnswer: "b"
+                    },
+                    {
+                   question: "What is 65 times 52?",
+                    answers: {
+                    a:"117",
+                    b:"3120",
+                    c:"3380",
+                    d:"3520"
+                    },
+                    correctAnswer: "b"
+                    },
+        ];
+      
+        // Kick things off
+        buildQuiz();
+      
+        // Event listeners
+        submitButton.addEventListener('click', showResults);
+      })();
+</script>
+</body>
+</html>

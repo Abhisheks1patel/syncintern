@@ -1,0 +1,115 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+body{
+    background-color:black;
+}
+nav h1{
+    color:#f8f7f7;
+    font-weight:bold;
+    text-align:justify;
+    
+}
+.text{
+  color: aliceblue;
+}
+.text hr{
+  position: relative;
+  top: 150px;
+}
+.text p{
+  position: relative;
+  top: 200px;
+  font-size: 40px;
+  margin-left: 20px;
+}
+.text p:hover{
+  background-color: #1f5b45;
+  color: rgb(253, 220, 0);
+}
+nav{
+    position:fixed;
+    width:100%;
+    background-color:rgb(249, 93, 2);
+    margin:26px 1px 9px 10px;
+    height:50px;
+}
+.nav li {
+    list-style-type:none;
+    color:#f8f7f7;
+    text-decoration:none;
+    font-size:20px;
+    padding:16px;
+    background-color:rgb(249, 93, 2);
+    width:100%;
+    height:50px; 
+}
+h1{
+    margin:10px;
+}
+.nav-right{
+    color:aliceblue;
+    
+}
+.flex{
+    display:inline-flex;
+    float:right;
+    margin:-47px 50px 5px 2px;
+
+}
+.nav li:hover{
+  background-color: #1f5b45;
+  font-size: 40px;
+}
+/* //buttons */
+.box {
+  align-items: center;
+  background-color: initial;
+  background-image: linear-gradient(rgba(179, 132, 201, .84), rgba(57, 31, 91, .84) 50%);
+  border-radius: 42px;
+  border-width: 0;
+  box-shadow: rgba(57, 31, 91, 0.24) 0 2px 2px,rgba(179, 132, 201, 0.4) 0 8px 12px;
+  color: #efe8e8;
+  cursor: pointer;
+  display: flex;
+  font-family: Quicksand,sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  justify-content: center;
+  letter-spacing: .04em;
+  line-height: 16px;
+  margin: 24px;
+  padding: 28px 18px;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: rgba(255, 255, 255, 0.4) 0 0 4px,rgba(255, 255, 255, 0.2) 0 0 12px,rgba(57, 31, 91, 0.6) 1px 1px 4px,rgba(57, 31, 91, 0.32) 4px 4px 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  position: relative;
+  top: 200px;
+  left: 45vw;
+}
+
+.box:hover {
+  background-image: linear-gradient(#d9afec, #1f5b45 50%);
+}
+
+@media (min-width: 768px) {
+  .box {
+    font-size: 21px;
+    padding: 18px 34px;
+  }
+}
+footer{
+  color: #f8f7f7;
+  position: relative;
+  top: 70vh;
+  text-align: center;
+}
+hr{
+  margin: 5px;
+}
